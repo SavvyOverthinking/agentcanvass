@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/db'
 
 export async function GET() {
-  const url = process.env.DATABASE_URL || ''
-  const token = process.env.DATABASE_AUTH_TOKEN || ''
-
-  return NextResponse.json({
-    DATABASE_URL_length: url.length,
-    DATABASE_URL_prefix: url.substring(0, 20),
-    DATABASE_AUTH_TOKEN_length: token.length,
-    DATABASE_AUTH_TOKEN_prefix: token.substring(0, 20),
-  })
+  try {
+    const pollCount = await prisma.poll.count()
+    return NextResponse.json({ status: 'ok', pollCount })
+  } catch (error) {
+    return NextResponse.json({
+      status: 'error',
+      error: error instanceof Error ? error.message : String(error),
+    }, { status: 500 })
+  }
 }
