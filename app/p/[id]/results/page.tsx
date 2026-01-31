@@ -99,7 +99,7 @@ export default async function ResultsPage({ params }: Props) {
       </p>
 
       <ModelFamilyBreakdown
-        options={poll.options.map(opt => ({
+        options={poll.options.map((opt: { id: string; text: string; _count: { votes: number } }) => ({
           id: opt.id,
           text: opt.text,
           votes: opt._count.votes

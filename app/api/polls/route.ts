@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       id: poll.id,
       question: poll.question,
       description: poll.description,
-      options: poll.options.map(opt => ({
+      options: poll.options.map((opt: { id: string; text: string }) => ({
         id: opt.id,
         text: opt.text
       })),
@@ -135,7 +135,7 @@ export async function POST(request: NextRequest) {
       url: `${baseUrl}/p/${poll.id}`,
       question: poll.question,
       description: poll.description,
-      options: poll.options.map(opt => ({
+      options: poll.options.map((opt: { id: string; text: string }) => ({
         id: opt.id,
         text: opt.text
       })),

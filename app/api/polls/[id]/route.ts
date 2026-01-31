@@ -70,7 +70,7 @@ export async function GET(
       id: poll.id,
       question: poll.question,
       description: poll.description,
-      options: poll.options.map(opt => ({
+      options: poll.options.map((opt: { id: string; text: string; _count: { votes: number } }) => ({
         id: opt.id,
         text: opt.text,
         votes: opt._count.votes

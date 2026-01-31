@@ -66,7 +66,7 @@ export async function GET(
     const response = NextResponse.json({
       id: poll.id,
       question: poll.question,
-      options: poll.options.map(opt => ({
+      options: poll.options.map((opt: { id: string; text: string; _count: { votes: number } }) => ({
         id: opt.id,
         text: opt.text,
         votes: opt._count.votes,
