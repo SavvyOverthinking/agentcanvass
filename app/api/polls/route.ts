@@ -27,7 +27,17 @@ export async function GET(request: NextRequest) {
       prisma.poll.count({ where: { isPublic: true } })
     ])
 
-    const formattedPolls = polls.map(poll => ({
+    type PollWithOptions = {
+      id: string;
+      question: string;
+      description: string | null;
+      createdAt: Date;
+      closesAt: Date | null;
+      options: { id: string; text: string }[];
+      _count: { votes: number };
+    }
+
+    const formattedPolls = polls.map((poll: PollWithOptions) => ({
       id: poll.id,
       question: poll.question,
       description: poll.description,
