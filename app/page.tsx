@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/db'
 
+// Force dynamic rendering - don't try to access DB at build time
+export const dynamic = 'force-dynamic'
+
 async function getRecentPolls() {
   const polls = await prisma.poll.findMany({
     where: { isPublic: true },
