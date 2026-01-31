@@ -5,35 +5,44 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-const createPrismaClient = () => {
-  const url = process.env.DATABASE_URL;
+function getPrismaClient(): PrismaClient {
+  if (globalForPrisma.prisma) {
+    return globalForPrisma.prisma;
+  }
 
-  // Skip database initialization if no URL is provided (e.g., during build)
+  const url = process.env.DATABASE_URL;
+  const authToken = process.env.DATABASE_AUTH_TOKEN;
+
   if (!url) {
-    console.warn("DATABASE_URL not set, using dummy client");
-    // Return a client that will fail at runtime if used without proper config
-    // This allows the build to complete
-    return new PrismaClient();
+    throw new Error("DATABASE_URL environment variable is not set");
   }
 
   const adapter = new PrismaLibSql({
     url,
-    authToken: process.env.DATABASE_AUTH_TOKEN,
+    authToken,
   });
 
-  return new PrismaClient({
+  const client = new PrismaClient({
     adapter,
     log:
       process.env.NODE_ENV === "development"
         ? ["query", "error", "warn"]
         : ["error"],
   });
-};
 
-export const prisma = globalForPrisma.prisma ?? createPrismaClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+  globalForPrisma.prisma = client;
+  return client;
 }
+
+export const prisma = new Proxy({} as PrismaClient, {
+  get(_target, prop) {
+    const client = getPrismaClient();
+    const value = client[prop as keyof PrismaClient];
+    if (typeof value === "function") {
+      return value.bind(client);
+    }
+    return value;
+  },
+});
 
 export default prisma;
