@@ -29,7 +29,7 @@ export async function GET(
       return new Response('Poll not found', { status: 404 })
     }
 
-    const totalVotes = poll.options.reduce((sum: number, opt) => sum + opt._count.votes, 0)
+    const totalVotes = poll.options.reduce((sum: number, opt: { _count: { votes: number } }) => sum + opt._count.votes, 0)
 
     return new ImageResponse(
       (
