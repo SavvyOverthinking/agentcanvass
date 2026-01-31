@@ -86,7 +86,7 @@ export async function GET(
               width: '100%',
             }}
           >
-            {poll.options.slice(0, 4).map((option) => {
+            {poll.options.slice(0, 4).map((option: { id: string; text: string; _count: { votes: number } }) => {
               const percentage = totalVotes > 0 ? Math.round((option._count.votes / totalVotes) * 100) : 0
               return (
                 <div
