@@ -52,7 +52,7 @@ export async function POST(
     }
 
     // Verify option belongs to poll
-    const option = poll.options.find(opt => opt.id === body.optionId)
+    const option = poll.options.find((opt: { id: string }) => opt.id === body.optionId)
     if (!option) {
       return NextResponse.json(
         { error: 'Invalid option for this poll' },
