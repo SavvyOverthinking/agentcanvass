@@ -30,7 +30,7 @@ export default async function EmbedPage({ params }: Props) {
     notFound()
   }
 
-  const totalVotes = poll.options.reduce((sum, opt) => sum + opt._count.votes, 0)
+  const totalVotes = poll.options.reduce((sum: number, opt: { _count: { votes: number } }) => sum + opt._count.votes, 0)
   const isOpen = !poll.closesAt || new Date(poll.closesAt) > new Date()
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
 
@@ -165,7 +165,7 @@ export default async function EmbedPage({ params }: Props) {
         <h1 className="question">{poll.question}</h1>
 
         <div className="options">
-          {poll.options.map((option) => {
+          {poll.options.map((option: { id: string; text: string; _count: { votes: number } }) => {
             const percentage = getPercentage(option._count.votes)
             return (
               <div key={option.id} className="option">

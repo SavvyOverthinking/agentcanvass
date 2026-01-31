@@ -82,7 +82,7 @@ export default async function Home() {
           </div>
         ) : (
           <div className="space-y-4">
-            {recentPolls.map((poll) => (
+            {recentPolls.map((poll: { id: string; question: string; createdAt: Date; options: { id: string; text: string }[]; _count: { votes: number } }) => (
               <Link
                 key={poll.id}
                 href={`/p/${poll.id}`}
@@ -90,7 +90,7 @@ export default async function Home() {
               >
                 <h3 className="font-semibold text-lg mb-2">{poll.question}</h3>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {poll.options.slice(0, 4).map((option) => (
+                  {poll.options.slice(0, 4).map((option: { id: string; text: string }) => (
                     <span
                       key={option.id}
                       className="text-xs px-2 py-1 bg-background rounded-full text-muted"

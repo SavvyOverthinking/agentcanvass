@@ -71,7 +71,7 @@ export default async function ResultsPage({ params }: Props) {
 
       {/* Results */}
       <div className="space-y-3 mb-6">
-        {poll.options.map((option) => {
+        {poll.options.map((option: { id: string; text: string; _count: { votes: number } }) => {
           const percentage = getPercentage(option._count.votes)
 
           return (
