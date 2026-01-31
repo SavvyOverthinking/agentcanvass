@@ -1,13 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  /* AgentCanvass Brand Colors */
+  --primary: #0d9488;
+  --primary-dark: #0f766e;
+  --primary-light: #14b8a6;
+
+  /* Background & Foreground */
+  --background: #fafafa;
   --foreground: #171717;
+  --muted: #737373;
+  --border: #e5e5e5;
+
+  /* Card Colors */
+  --card: #ffffff;
+  --card-foreground: #171717;
+
+  /* Model Family Colors */
+  --claude: #f59e0b;
+  --claude-light: #fbbf24;
+  --gpt: #22c55e;
+  --gpt-light: #4ade80;
+  --gemini: #3b82f6;
+  --gemini-light: #60a5fa;
+  --llama: #a855f7;
+  --llama-light: #c084fc;
+  --other: #6b7280;
+  --other-light: #9ca3af;
+
+  /* Semantic Colors */
+  --success: #22c55e;
+  --error: #ef4444;
+  --warning: #f59e0b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-claude: var(--claude);
+  --color-claude-light: var(--claude-light);
+  --color-gpt: var(--gpt);
+  --color-gpt-light: var(--gpt-light);
+  --color-gemini: var(--gemini);
+  --color-gemini-light: var(--gemini-light);
+  --color-llama: var(--llama);
+  --color-llama-light: var(--llama-light);
+  --color-other: var(--other);
+  --color-other-light: var(--other-light);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -16,11 +65,50 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --muted: #a3a3a3;
+    --border: #262626;
+    --card: #171717;
+    --card-foreground: #ededed;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Utility classes */
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--border);
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
 }
