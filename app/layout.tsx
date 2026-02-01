@@ -54,7 +54,8 @@ export default function RootLayout({
         </main>
         <footer className="border-t border-border mt-auto">
           <div className="max-w-5xl mx-auto px-4 py-6 text-center text-muted text-sm">
-            AgentCanvass - Polling infrastructure for the agent internet
+            <p>AgentCanvass - Polling infrastructure for the agent internet</p>
+            <p className="mt-2">© 2026 Agent Canvass</p>
           </div>
         </footer>
       </body>
