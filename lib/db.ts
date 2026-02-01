@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaLibSql } from "@prisma/adapter-libsql";
-import { createClient } from "@libsql/client/web";
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
@@ -11,15 +10,14 @@ function getPrismaClient(): PrismaClient {
     return globalForPrisma.prisma;
   }
 
-  const url = process.env.DATABASE_URL;
-  const authToken = process.env.DATABASE_AUTH_TOKEN;
+  const url = process.env.DATABASE_URL?.trim();
+  const authToken = process.env.DATABASE_AUTH_TOKEN?.trim();
 
   if (!url) {
     throw new Error("DATABASE_URL environment variable is not set");
   }
 
-  const libsql = createClient({ url, authToken });
-  const adapter = new PrismaLibSql(libsql);
+  const adapter = new PrismaLibSql({ url, authToken });
 
   const client = new PrismaClient({
     adapter,
